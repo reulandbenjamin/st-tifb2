@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
+import streamlit_folium as stf
 import folium
-from streamlit_folium import st_folium
 from folium.plugins import MarkerCluster
 
 # Ajoutez une variable globale pour stocker les pays sélectionnés
@@ -32,20 +32,19 @@ def show_map(data, selected_countries):
             return selected_countries
 
         # Créer une carte Folium centrée sur la moyenne des coordonnées
-        m = folium.Map(location=[data_cleaned["latitude"].mean(), data_cleaned["longitude"].mean()], zoom_start=5)
+        trainmap = folium.Map(location=[data_cleaned["latitude"].mean(), data_cleaned["longitude"].mean()], zoom_start=5)
 
         # Créer un cluster de marqueurs
-        marker_cluster = MarkerCluster().add_to(m)
+        marker_cluster = MarkerCluster().add_to(trainmap)
 
         # Ajouter des marqueurs pour chaque point
         for index, row in data_cleaned.iterrows():
             folium.Marker([row["latitude"], row["longitude"]], popup=row['name_norm']).add_to(marker_cluster)
 
         # Afficher la carte dans Streamlit
-        st.folium_static(m)
+        stf.folium_static(trainmap)
 
         return selected_countries
-
 
 
 def main():
