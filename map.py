@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import folium
+from streamlit_folium import st_folium
 from folium.plugins import MarkerCluster
 
 # Ajoutez une variable globale pour stocker les pays sélectionnés
@@ -41,7 +42,7 @@ def show_map(data, selected_countries):
             folium.Marker([row["latitude"], row["longitude"]], popup=row['name_norm']).add_to(marker_cluster)
 
         # Afficher la carte dans Streamlit
-        st.write(m)
+        st.folium(m)
 
         return selected_countries
 
