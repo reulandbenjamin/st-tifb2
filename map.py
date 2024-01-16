@@ -42,7 +42,7 @@ def show_map(data, selected_countries):
             folium.Marker([row["latitude"], row["longitude"]], popup=row['name_norm']).add_to(marker_cluster)
 
         # Afficher la carte dans Streamlit
-        st.folium(m)
+        st.folium_static(m)
 
         return selected_countries
 
